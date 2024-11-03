@@ -1,3 +1,4 @@
+
 namespace Condo.Api
 {
     public class Program
@@ -8,7 +9,6 @@ namespace Condo.Api
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
