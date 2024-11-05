@@ -1,4 +1,7 @@
 
+using Condo.Api.Common;
+using Condo.Api.EndPoints;
+
 namespace Condo.Api
 {
     public class Program
@@ -6,20 +9,22 @@ namespace Condo.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.AddConfiguration();
+            builder.AddSecurity();
+            builder.AddDataContexts();
+            builder.AddDocumentation();
+            builder.AddServices();
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+                app.ConfigureDevEnvironment();
 
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.MapControllers();
+            app.UseCors("AllowFrontend");
+
+            app.UseSecurity();
+            app.MapEndPoints();
+
             app.Run();
         }
     }

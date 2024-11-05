@@ -23,5 +23,15 @@ namespace Condo.Core.Responses
         [JsonIgnore]
         public bool IsSuccess
             => _code is >= 200 and <= 299;
+
+        public static Response<TData> SuccessMessage(TData? data, string? message = "Success")
+        {
+            return new Response<TData>(data, 200, message);
+        }
+
+        public static Response<TData> Error(string message, int statusCode = 400)
+        {
+            return new Response<TData>(default, statusCode, message);
+        }
     }
 }
